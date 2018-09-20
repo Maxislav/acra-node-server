@@ -1,0 +1,27 @@
+{
+  "name": "acra-node-server",
+  "version": "1.0.0",
+  "description": "acra server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxislav/acra-node-server.git"
+  },
+  "keywords": [
+    "acra"
+  ],
+  "author": "Maxislav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maxislav/acra-node-server/issues"
+  },
+  "homepage": "https://github.com/Maxislav/acra-node-server#readme",
+  "dependencies": {
+    "@types/node": "^10.10.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
