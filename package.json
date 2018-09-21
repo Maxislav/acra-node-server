@@ -22,6 +22,7 @@
   "dependencies": {
     "@types/node": "^10.10.1",
     "body-parser": "^1.18.3",
+    "dateformat": "^3.0.3",
     "express": "^4.16.3"
   }
 }
