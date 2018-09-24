@@ -1,10 +1,15 @@
 import { app } from './server/server';
 import { reportCreate } from './server/file-system';
+import { dirList, fileJson, fileList } from './server/file-list';
 
 
 app.get('/', (req, res) => {
     res.send('GET request to the homepage');
 });
+
+app.get('/report', dirList);
+app.get('/report/:appName', fileList);
+app.get('/report/:appName/:fileName', fileJson);
 
 app.post('/acra/:name', (req, res) => {
 
@@ -13,18 +18,18 @@ app.post('/acra/:name', (req, res) => {
     let query: string = '';
 
     try {
-        query = JSON.stringify(req.query, null, 4)
-    }catch (e) {
-        console.warn(e)
+        query = JSON.stringify(req.query, null, 4);
+    } catch (e) {
+        console.warn(e);
     }
     let jsonString = '';// req.body
-    try{
-        jsonString = JSON.stringify(req.body, null, 4)
-    }catch (e) {
-        console.warn(e)
+    try {
+        jsonString = JSON.stringify(req.body, null, 4);
+    } catch (e) {
+        console.warn(e);
     }
 
-    reportCreate(appName, req.body)
+    reportCreate(appName, req.body);
 
     console.log(url);
     console.log(query);
