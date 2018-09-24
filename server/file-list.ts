@@ -35,11 +35,9 @@ const templateIndex =
            display: flex; 
            margin:  0;
         }
-        .flex>*{
+        .flex>*, .cell{
             padding: 10px 20px;
-           
         }
-        
         .row{
          border-bottom: 1px solid gray;
         }
@@ -91,7 +89,7 @@ export const fileList = (req, res) => {
             res.send('Internal err');
         } else {
             files.forEach(file => {
-                fileList.push(`<div><a href="/report/${req.params.appName}/${file}">${file}</a></div>\n`);
+                fileList.push(`<div class="row"><div class="cell"><a href="/report/${req.params.appName}/${file}">${file}</a></div></div>\n`);
             });
             res.statusCode = 200;
             res.send(pp.compile(templateIndex, {content: fileList.join('')}));
