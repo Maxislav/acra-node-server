@@ -88,6 +88,14 @@ export const fileList = (req, res) => {
             res.statusCode = 500;
             res.send('Internal err');
         } else {
+            const rex = new RegExp("(\\d{4})-(\\d{2})-(\\d{2})_(\\d{2})-(\\d{2})-(\\d{2})\\.(\\d{3})")
+            files.sort((a: any, b: any) => {
+                const matcher1 = a.match(rex);
+                const matcher2 = b.match(rex);
+                const d1 = new Date(matcher1[1], Number(matcher1[2])-1, matcher1[3], matcher1[4], matcher1[5], matcher1[6], matcher1[7]);
+                const d2 = new Date(matcher2[1], Number(matcher2[2])-1, matcher2[3], matcher2[4], matcher2[5], matcher2[6], matcher2[7]);
+                return d2.getTime() - d1.getTime();
+            });
             files.forEach(file => {
                 fileList.push(`<div class="row"><div class="cell"><a href="/report/${req.params.appName}/${file}">${file}</a></div></div>\n`);
             });
@@ -150,7 +158,7 @@ const htmlFromJson = (obj, str?) => {
                 `<div class="row"><div class="flex">
                     <div>${key}</div>
                     <div>${htmlFromArray(obj[key])}</div>
-</div></div>`
+                </div></div>`
             );
         }
         else if (obj[key] instanceof Object) {
