@@ -18,10 +18,11 @@ const templateIndex =
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-    body{
-     width: 100%;
-     margin: 0;
-    }
+        body{
+         width: 100%;
+         margin: 0;
+         font-family: Arial, Helvetica, sans-serif;
+        }
         .container{
             padding: 0 20px;
         }
@@ -36,15 +37,24 @@ const templateIndex =
         }
         .flex>*{
             padding: 10px 20px;
+           
         }
-        .flex:nth-child(2n){
+        
+        .row{
+         border-bottom: 1px solid gray;
+        }
+        .row:nth-child(2n){
             background: antiquewhite;
-        } 
-        .flex:nth-child(2n+1){
-            background: #fffdcd;
         }
-        .flex:hover{
-            background: #ffcec6;
+        .row:nth-child(2n+1){
+            background: #fff5e4;
+        }
+       
+        .row:hover{
+            background: white;
+        }
+        .key{
+            font-weight: bold;
         }
     </style>
 </head>
@@ -139,10 +149,10 @@ const htmlFromJson = (obj, str?) => {
 
         if (Array.isArray(obj[key])) {
             divList.push(
-                `<div class="flex">
+                `<div class="row"><div class="flex">
                     <div>${key}</div>
                     <div>${htmlFromArray(obj[key])}</div>
-</div>`
+</div></div>`
             );
         }
         else if (obj[key] instanceof Object) {
@@ -153,12 +163,14 @@ const htmlFromJson = (obj, str?) => {
 
 
             divList.push(
-                `<div class="flex">
-                    <div>
-                    ${key}
-                    </div>
-                    <div>
-                    ${value}
+                `<div class="row">
+                    <div class="flex">
+                        <div class="key">
+                        ${key}
+                        </div>
+                        <div class="value">
+                        ${value}
+                        </div>
                     </div>
                 </div>`
             );
