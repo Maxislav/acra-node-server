@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as dateformat from 'dateformat'
 
 class PP {
     compile(src: string, map?: { [key: string]: string }): string {
@@ -97,7 +98,10 @@ export const fileList = (req, res) => {
                 return d2.getTime() - d1.getTime();
             });
             files.forEach(file => {
-                fileList.push(`<div class="row"><div class="cell"><a href="/report/${req.params.appName}/${file}">${file}</a></div></div>\n`);
+                const matcher1: Array<number> = new Array<string>(...file.match(rex)).map(Number);
+                const d1 = new Date(matcher1[1], Number(matcher1[2])-1, matcher1[3], matcher1[4], matcher1[5], matcher1[6], matcher1[7]);
+                fileList.push(`<div class="row"><div class="cell"><a href="/report/${req.params.appName}/${file}">
+                ${dateformat(d1, 'yyyy-mm-dd HH:MM:ss')}</a></div></div>\n`);
             });
             res.statusCode = 200;
             res.send(pp.compile(templateIndex, {content: fileList.join('')}));
