@@ -31,7 +31,7 @@ const templateIndex =
         }
         .container{
             padding:  20px;
-            height: calc(100% - 40px);
+            min-height: calc(100% - 40px);
         }
         .container>*{
             height: 100%;
