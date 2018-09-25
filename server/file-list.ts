@@ -19,13 +19,24 @@ const templateIndex =
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        html{
+         height: 100%;
+        }
         body{
          width: 100%;
          margin: 0;
+         height: 100%;
          font-family: Arial, Helvetica, sans-serif;
+         background-size: 100%;
         }
         .container{
-            padding: 0 20px;
+            padding:  20px;
+            height: calc(100% - 40px);
+        }
+        .container>*{
+            height: 100%;
+            background: #fff5e4;
+            box-shadow: 0 2px 10px black;
         }
         *{
          box-sizing: padding-box;
@@ -59,7 +70,9 @@ const templateIndex =
 </head>
 <body>
 <div class="container">
+<div>
 {content}
+</div>
 
 </div>
 </body>
@@ -74,7 +87,7 @@ export const dirList = (req, res) => {
 
     fs.readdir(base, (err, files) => {
         files.forEach(file => {
-            fileList.push(`<a href="/report/${file}">${file}</a>`);
+            fileList.push(`<div class="row"><div class="flex"><a href="/report/${file}">${file}</a></div></div>`);
         });
         res.statusCode = 200;
         res.send(pp.compile(templateIndex, {content: fileList.join('')}));
@@ -117,17 +130,12 @@ export const fileJson = (req, res) => {
 
         try {
             jsonObj = JSON.parse(content.toString());
-
             const str = htmlFromJson(jsonObj);
-
-
             res.send(pp.compile(templateIndex, {content: str}));
         } catch (e) {
             res.statusCode = 500;
-            res.end();
+            res.end('Error JSON.parse');
         }
-
-        //res.send(content.toString());
     });
 
 };
@@ -168,10 +176,7 @@ const htmlFromJson = (obj, str?) => {
         else if (obj[key] instanceof Object) {
             divList.push(htmlFromJson(obj[key]));
         } else {
-
-            let value = !!obj[key].replace ? obj[key].replace(/\n/g, '</br>') : obj[key];
-
-
+            let value = (typeof obj[key] === 'string')  ? obj[key].replace(/\n/g, '</br>') : obj[key];
             divList.push(
                 `<div class="row">
                     <div class="flex">
