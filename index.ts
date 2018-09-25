@@ -1,6 +1,7 @@
 import { app } from './server/server';
 import { reportCreate } from './server/file-system';
 import { dirList, fileJson, fileList } from './server/file-list';
+import * as dateformat from 'dateformat'
 
 
 app.get('/', (req, res) => {
@@ -32,7 +33,7 @@ app.post('/acra/:name', (req, res) => {
     reportCreate(appName, req.body);
 
     console.log(url);
-    console.log(query);
-    console.log(jsonString);
-    res.send('post request to the homepage');
+    console.log(`${dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss' )} PHONE_MODEL -> ${req.body.PHONE_MODEL}`);
+    console.log(`*****`);
+    res.send('ok');
 });

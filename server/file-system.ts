@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as dateformat from 'dateformat'
+import * as dateformat from 'dateformat';
 
 const base = path.join(__dirname, '../report');
 export const reportCreate = (appName: string, report: { [key: string]: any }) => {
